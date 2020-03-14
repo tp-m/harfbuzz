@@ -20,11 +20,15 @@ option('directwrite', type: 'feature', value: 'disabled',
 option('coretext', type: 'feature', value: 'disabled',
   description: 'Enable CoreText shaper backend on macOS')
 
+option('ragel', type : 'feature', value: 'auto',
+  description : 'Re-generate sources with ragel (auto = required for development, but not for build from tarball)')
+
 # Common feature options
 option('tests', type : 'feature', value : 'auto', yield : true,
   description: 'Enable or disable unit tests')
 option('introspection', type : 'feature', value : 'disabled', yield : true,
   description : 'Generate gobject-introspection bindings (.gir/.typelib files)')
 
+# Other HarfBuzz options
 option('amalgam', type : 'boolean', value : false,
   description : 'Enable amalgam builds')

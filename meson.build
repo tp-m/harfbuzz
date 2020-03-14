@@ -3,6 +3,12 @@ project('harfbuzz', 'c', 'cpp',
   default_options : ['cpp_std=c++11'],
   version: '2.6.4')
 
+dev_mode = false
+if meson.version().version_compare('>= 0.53') and import('fs').is_dir('.git')
+  dev_mode = true
+  message('Developer mode (git checkout)')
+endif
+
 hb_version_arr = meson.project_version().split('.')
 hb_version_major = hb_version_arr[0].to_int()
 hb_version_minor = hb_version_arr[1].to_int()
@@ -72,6 +78,12 @@ check_funcs = [
   ['strtod_l'],
   ['roundf'],
 ]
+
+ragel_opt = get_option('ragel')
+if ragel_opt.auto()
+  ragel_opt = dev_mode
+endif
+ragel = find_program('ragel', required: ragel_opt)
 
 freetype_dep = dependency('freetype2', required: false)
 

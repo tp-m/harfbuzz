@@ -42,7 +42,26 @@ hb_base_headers = files([
 hb_base_ragel_sources = [
   'hb-buffer-deserialize-json.rl',
   'hb-buffer-deserialize-text.rl',
+  'hb-number-parser.rl',
+  'hb-ot-shape-complex-indic-machine.rl',
+  'hb-ot-shape-complex-khmer-machine.rl',
+  'hb-ot-shape-complex-myanmar-machine.rl',
+  'hb-ot-shape-complex-use-machine.rl',
 ]
+
+hb_base_ragel_gen_sources = []
+
+if ragel.found()
+  foreach rl_src : hb_base_ragel_sources
+    rl_base = rl_src.split('.')[0]
+    rl_output = '@0@.hh'.format(rl_base)
+    rl_gen = custom_target(rl_output,
+      command: [ragel, '-e', '-F1', '-o', '@OUTPUT@', '@INPUT@'],
+      input: rl_src,
+      output: rl_output)
+    hb_base_ragel_gen_sources += [rl_gen]
+  endforeach
+endif
 
 hb_fallback_sources = [
   'hb-fallback-shape.cc',
@@ -90,13 +109,6 @@ hb_ot_headers = files([
   'hb-ot-shape.h',
   'hb-ot-var.h',
 ])
-
-hb_ot_ragel_sources = [
-  'hb-ot-shape-complex-indic-machine.rl',
-  'hb-ot-shape-complex-khmer-machine.rl',
-  'hb-ot-shape-complex-myanmar-machine.rl',
-  'hb-ot-shape-complex-use-machine.rl',
-]
 
 hb_ft_sources = [
   'hb-ft.cc',
@@ -162,7 +174,7 @@ hb_gobject_headers = files([
 incucdn = []
 incsrc = include_directories('.')
 
-hb_sources = hb_base_sources + hb_fallback_sources + hb_ot_sources
+hb_sources = hb_base_sources + hb_base_ragel_gen_sources + hb_fallback_sources + hb_ot_sources
 hb_headers = hb_base_headers + hb_ot_headers
 
 if conf.get('HAVE_FREETYPE', 0) == 1
