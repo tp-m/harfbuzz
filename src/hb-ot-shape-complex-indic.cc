@@ -347,7 +347,7 @@ enum indic_syllable_type_t {
   indic_non_indic_cluster,
 };
 
-#include "hb-ot-shape-complex-indic-machine.hh"
+#include <hb-ot-shape-complex-indic-machine.hh>
 
 
 static void

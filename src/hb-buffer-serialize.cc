@@ -403,8 +403,8 @@ parse_uint (const char *pp, const char *end, uint32_t *pv)
   return true;
 }
 
-#include "hb-buffer-deserialize-json.hh"
-#include "hb-buffer-deserialize-text.hh"
+#include <hb-buffer-deserialize-json.hh>
+#include <hb-buffer-deserialize-text.hh>
 
 /**
  * hb_buffer_deserialize_glyphs:

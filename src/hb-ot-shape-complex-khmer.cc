@@ -197,7 +197,7 @@ enum khmer_syllable_type_t {
   khmer_non_khmer_cluster,
 };
 
-#include "hb-ot-shape-complex-khmer-machine.hh"
+#include <hb-ot-shape-complex-khmer-machine.hh>
 
 static void
 setup_masks_khmer (const hb_ot_shape_plan_t *plan HB_UNUSED,

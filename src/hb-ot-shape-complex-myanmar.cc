@@ -111,7 +111,7 @@ enum myanmar_syllable_type_t {
   myanmar_non_myanmar_cluster,
 };
 
-#include "hb-ot-shape-complex-myanmar-machine.hh"
+#include <hb-ot-shape-complex-myanmar-machine.hh>
 
 
 static void
